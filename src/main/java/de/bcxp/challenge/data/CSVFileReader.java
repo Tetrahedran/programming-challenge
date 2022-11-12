@@ -3,6 +3,7 @@ package de.bcxp.challenge.data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Generic file reader for csv files
@@ -53,7 +54,7 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
     }
 
     String[] parts = header.split(separator);
-    attributeNames = Arrays.stream(parts).map(String::trim).toList();
+    attributeNames = Arrays.stream(parts).map(String::trim).collect(Collectors.toList());
   }
 
   @Override
