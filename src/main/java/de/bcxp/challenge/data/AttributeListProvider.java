@@ -17,5 +17,5 @@ public interface AttributeListProvider{
    * Checks if another attribute list can be created
    * @return true if another attribute list can be returned, else false
    */
-  boolean hasNextAttributeList();
+  boolean hasNewAttributeList();
 }
