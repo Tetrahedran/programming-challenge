@@ -47,7 +47,7 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
       throw new IllegalArgumentException("csv file " + path + " is empty");
     }
 
-    String header = this.line;
+    String header = consumeLine();
 
     if(header.trim().isEmpty()){
       throw new IllegalArgumentException("Csv file " + path + " contains blank header");
@@ -57,14 +57,23 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
     attributeNames = Arrays.stream(parts).map(String::trim).collect(Collectors.toList());
   }
 
+  /**
+   * Returns the currently saved line and sets the field to an empty string
+   * @return the currently saved line
+   */
+  private String consumeLine(){
+    String tmp = this.line;
+    this.line = "";
+    return tmp;
+  }
+
   @Override
   public Map<String, String> getNextAttributeList() {
     if(this.line.trim().isEmpty() && !hasNewAttributeList()){
       throw new RuntimeException("Reached end of file");
     }
 
-    String line = this.line;
-    this.line = "";
+    String line = consumeLine();
     String[] parts = line.split(separator);
 
     if(parts.length != attributeNames.size()){
