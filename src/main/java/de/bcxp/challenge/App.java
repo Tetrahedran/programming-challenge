@@ -34,9 +34,6 @@ public final class App {
             DataProvider<WeatherData> dataProvider = new WeatherDataFactory();
             data = dataProvider.getDataObjectsFrom(provider);
         }
-        catch(Exception fe){
-            System.out.println(fe.getMessage());
-        }
 
         String dayWithSmallestTempSpread = BasicMetricEvaluator.getIdentifierForMinimumValue(
           data, wData -> Integer.toString(wData.getDay()), WeatherData::getTemperatureSpread);     // Your day analysis function call …
