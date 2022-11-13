@@ -13,8 +13,8 @@ public class WeatherDataTest {
     int minTemp = 10;
     int maxTemp = 20;
     WeatherData data = new WeatherData(day, minTemp, maxTemp);
-    assertEquals(data.getDay(), day);
-    assertEquals(data.getTemperatureSpread(), maxTemp - minTemp, 0.0001f);
+    assertEquals(day, data.getDay());
+    assertEquals(maxTemp - minTemp, data.getTemperatureSpread(),0.0001f);
   }
 
   @Test
@@ -23,7 +23,7 @@ public class WeatherDataTest {
     float minTemp = 10.5f;
     float maxTemp = 20.7f;
     WeatherData data = new WeatherData(day, minTemp, maxTemp);
-    assertEquals(data.getTemperatureSpread(), maxTemp - minTemp, 0.0001f);
+    assertEquals(maxTemp - minTemp, data.getTemperatureSpread(),0.0001f);
   }
 
   @Test
@@ -32,7 +32,7 @@ public class WeatherDataTest {
     float minTemp = 0;
     float maxTemp = 0;
     WeatherData data = new WeatherData(day, minTemp, maxTemp);
-    assertEquals(data.getTemperatureSpread(), 0.0, 0.00001f);
+    assertEquals(0.0, data.getTemperatureSpread(),0.00001f);
   }
 
   @Test
