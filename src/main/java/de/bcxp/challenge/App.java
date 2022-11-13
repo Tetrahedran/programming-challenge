@@ -9,6 +9,7 @@ import de.bcxp.challenge.model.WeatherData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,9 @@ public final class App {
 
         // Your preparation code …
         List<WeatherData> data = new ArrayList<>();
-        String filePath = "C:\\Users\\Patrick Hanselmann\\Documents\\Arbeit\\programming-challenge\\src\\main\\resources\\de\\bcxp\\challenge\\weather.csv";
-        try(CSVFileReader provider = new CSVFileReader(filePath, ',')){
+        String filePath = "de/bcxp/challenge/weather.csv";
+        InputStream stream = App.class.getClassLoader().getResourceAsStream(filePath);
+        try(CSVFileReader provider = new CSVFileReader(stream, filePath, ',')){
             DataProvider<WeatherData> dataProvider = new WeatherDataFactory();
             data = dataProvider.getDataObjectsFrom(provider);
         }

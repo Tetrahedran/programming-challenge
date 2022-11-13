@@ -2,6 +2,7 @@ package de.bcxp.challenge.data;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -18,24 +19,23 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
 
   /**
    * Constructor
-   * @param filePath Path of csv file to be processed by this reader
+   * @param stream Input stream for csv file to be processed
+   * @param path Path of the csv file for logging purposes
    * @param separator Separator for columns used in csv file
-   * @throws FileNotFoundException If file at filePath does not exist
    */
-  public CSVFileReader(String filePath, char separator) throws FileNotFoundException{
-    this.path = filePath;
+  public CSVFileReader(InputStream stream, String path, char separator){
     this.separator = Character.toString(separator);
     this.line = "";
-    openFile();
+    this.path = path;
+    preprocessStream(stream);
   }
 
   /**
-   * Opens the file at filePath and does preprocessing of the file
-   * @throws FileNotFoundException If no file at filePath exists
+   * Preprocesses the stream by creating a scanner for it and extracting attribute names from underlying csv resource
+   * @param stream Stream to csv resource
    */
-  private void openFile() throws FileNotFoundException {
-    File csv = new File(path);
-    scanner = new Scanner(csv);
+  private void preprocessStream(InputStream stream){
+    scanner = new Scanner(stream);
     extractAttributeNames();
   }
 
