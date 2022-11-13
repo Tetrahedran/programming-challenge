@@ -1,5 +1,7 @@
 package de.bcxp.challenge.model;
 
+import java.util.Objects;
+
 public class WeatherData {
   private final int day;
   private final float minimumTemperature;
@@ -21,5 +23,19 @@ public class WeatherData {
 
   public float getTemperatureSpread(){
     return maximumTemperature - minimumTemperature;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    WeatherData that = (WeatherData) o;
+    return day == that.day && Float.compare(that.minimumTemperature, minimumTemperature) == 0 &&
+      Float.compare(that.maximumTemperature, maximumTemperature) == 0;
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(day, minimumTemperature, maximumTemperature);
   }
 }
