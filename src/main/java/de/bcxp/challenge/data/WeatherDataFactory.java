@@ -5,6 +5,7 @@ import de.bcxp.challenge.model.WeatherData;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class WeatherDataFactory implements DataProvider<WeatherData>{
   public static final String MAXIMUM_TEMP_IDENTIFIER = "MxT";
@@ -14,6 +15,8 @@ public class WeatherDataFactory implements DataProvider<WeatherData>{
 
   @Override
   public List<WeatherData> getDataObjectsFrom(AttributeListProvider provider) {
+
+    Objects.requireNonNull(provider);
 
     List<WeatherData> data = new ArrayList<>();
 
