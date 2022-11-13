@@ -119,11 +119,19 @@ public class CSVFileReaderTest {
   }
 
   @Test
-  void getNextattributeListAtEOF(){
+  void getNextAttributeListAtEOF(){
     String path = "de/bcxp/challenge/SimpleFile.csv";
     InputStream stream = getClass().getClassLoader().getResourceAsStream(path);
     reader = new CSVFileReader(stream, path, ';');
     reader.getNextAttributeList();
+    assertThrows(RuntimeException.class, () -> reader.getNextAttributeList());
+  }
+
+  @Test
+  void getNextAttributeListIncorrectNumberOfColsInRow(){
+    String path = "de/bcxp/challenge/IncorrectNumberCols.csv";
+    InputStream stream = getClass().getClassLoader().getResourceAsStream(path);
+    reader = new CSVFileReader(stream, path, ';');
     assertThrows(RuntimeException.class, () -> reader.getNextAttributeList());
   }
 
