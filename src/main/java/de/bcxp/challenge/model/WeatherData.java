@@ -7,6 +7,10 @@ public class WeatherData {
 
   public WeatherData(int day, float minimumTemperature, float maximumTemperature){
     this.day = day;
+    if(minimumTemperature > maximumTemperature){
+      throw new IllegalArgumentException("The minimum temperature " + minimumTemperature + " is higher than the maximum" +
+        "temperature " + maximumTemperature);
+    }
     this.minimumTemperature = minimumTemperature;
     this.maximumTemperature = maximumTemperature;
   }
