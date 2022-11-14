@@ -32,4 +32,19 @@ public class BasicMetricEvaluator {
     return id;
   }
 
+  public static <T> String getIdentifierForMaximumMetric(
+    List<T> data,
+    IdentifierProvider<T> idProvider,
+    MetricProvider<T> metricProvider
+  ){
+    if(data.isEmpty()){
+      throw new IllegalArgumentException("The provided data list was empty");
+    }
+
+    String id = data.stream()
+      .max(Comparator.comparingDouble(metricProvider::getMetric))
+      .map(idProvider::getIdentifier).orElseThrow(()->new NoSuchElementException("A maximum value couldn't be found"));
+    return id;
+  }
+
 }
