@@ -2,8 +2,6 @@ package de.bcxp.challenge.data;
 
 import de.bcxp.challenge.model.CountryData;
 
-import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.*;
 
 public class CountryDataFactory implements DataProvider<CountryData>{
