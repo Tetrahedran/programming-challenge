@@ -68,4 +68,60 @@ public class BasicMetricEvaluatorTest {
 
     assertTrue(expectedDays.contains(result));
   }
+
+  @Test
+  void getIdentifierForMaxSingleItemTest(){
+    int day = 1;
+    WeatherData data = new WeatherData(day, 10, 20);
+    List<WeatherData> dataList = List.of(data);
+    String result = BasicMetricEvaluator.getIdentifierForMaximumMetric(
+      dataList, (dat) -> Integer.toString(dat.getDay()), WeatherData::getTemperatureSpread);
+    assertEquals(Integer.toString(day), result);
+  }
+
+  @Test
+  void getIdentifierForMaxMultipleItemTest(){
+    int day1 = 1;
+    int day2 = 2;
+    int winnerDay = 3;
+
+    WeatherData dat1 = new WeatherData(day1, 0,0);
+    WeatherData dat2 = new WeatherData(day2,0,0);
+    WeatherData winnerDat = new WeatherData(winnerDay,0,1);
+
+    List<WeatherData> dataList = Arrays.asList(dat1, dat2, winnerDat);
+
+    String result = BasicMetricEvaluator.getIdentifierForMaximumMetric(dataList,
+      dat -> Integer.toString(dat.getDay()), WeatherData::getTemperatureSpread);
+
+    assertEquals(Integer.toString(winnerDay), result);
+  }
+
+  @Test
+  void getIdentifierForMaxEmptyList(){
+    List<WeatherData> dataList = new ArrayList<>();
+    assertThrows(IllegalArgumentException.class, () -> BasicMetricEvaluator.getIdentifierForMaximumMetric(dataList,
+      (data) -> Integer.toString(data.getDay()), WeatherData::getTemperatureSpread));
+  }
+
+  @Test
+  void getIdentifierForMaxMultipleMinData(){
+    int day1 = 1;
+    int winnerDay1 = 2;
+    int winnerDay2 = 3;
+
+    WeatherData dat1 = new WeatherData(day1, 0,0);
+    WeatherData winnerDat1 = new WeatherData(winnerDay1,0,1);
+    WeatherData winnerDat2 = new WeatherData(winnerDay2,0,1);
+
+    List<WeatherData> dataList = Arrays.asList(dat1, winnerDat1, winnerDat2);
+
+    String result = BasicMetricEvaluator.getIdentifierForMaximumMetric(dataList,
+      data -> Integer.toString(data.getDay()), WeatherData::getTemperatureSpread);
+
+    List<String> expectedDays = Arrays.asList(Integer.toString(winnerDay1),
+      Integer.toString(winnerDay2));
+
+    assertTrue(expectedDays.contains(result));
+  }
 }
