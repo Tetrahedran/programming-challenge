@@ -3,9 +3,9 @@ package de.bcxp.challenge.model;
 public class CountryData {
   private final String name;
   private final int population;
-  private final int area;
+  private final double area;
 
-  public CountryData(String name, int population, int area){
+  public CountryData(String name, int population, double area){
     this.name = name;
     this.population = population;
     if(area == 0){
@@ -18,7 +18,7 @@ public class CountryData {
     return name;
   }
 
-  public float getPopulationDensity(){
-    return (float)population / area;
+  public double getPopulationDensity(){
+    return population / area;
   }
 }
