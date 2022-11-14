@@ -1,5 +1,7 @@
 package de.bcxp.challenge.model;
 
+import java.util.Objects;
+
 public class CountryData {
   private final String name;
   private final int population;
@@ -20,5 +22,18 @@ public class CountryData {
 
   public double getPopulationDensity(){
     return population / area;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    CountryData that = (CountryData) o;
+    return population == that.population && Double.compare(that.area, area) == 0 && Objects.equals(name, that.name);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(name, population, area);
   }
 }
