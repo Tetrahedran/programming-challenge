@@ -1,9 +1,6 @@
 package de.bcxp.challenge.data;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -11,6 +8,8 @@ import java.util.stream.Collectors;
  * Generic file reader for csv files
  */
 public class CSVFileReader implements AttributeListProvider, AutoCloseable {
+  public static final String HEADER_ANNOTATION_REGEX = "\\s[(].*[)]";
+
   private final String path;
   private final String separator;
 
@@ -53,7 +52,16 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
     String header = consumeLine();
 
     String[] parts = header.split(separator);
-    attributeNames = Arrays.stream(parts).map(String::trim).collect(Collectors.toList());
+    attributeNames = Arrays.stream(parts)
+      .map(String::trim)
+      .map(head -> {
+        if(head.matches(".*" + HEADER_ANNOTATION_REGEX)){
+          String[] headerParts = head.split(HEADER_ANNOTATION_REGEX);
+          head = headerParts[0].trim();
+        }
+        return head;
+      })
+      .collect(Collectors.toList());
   }
 
   /**

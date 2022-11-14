@@ -9,7 +9,7 @@ import java.util.*;
 public class CountryDataFactory implements DataProvider<CountryData>{
   public static final String NAME_IDENTIFIER = "Name";
   public static final String POPULATION_IDENTIFIER = "Population";
-  public static final String AREA_IDENTIFIER = "Area (km²)";
+  public static final String AREA_IDENTIFIER = "Area";
 
   @Override
   public List<CountryData> getDataObjectsFrom(AttributeListProvider provider) {
