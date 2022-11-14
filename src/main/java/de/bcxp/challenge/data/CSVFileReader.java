@@ -36,12 +36,14 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
    * @param stream Stream to csv resource
    */
   private void preprocessStream(InputStream stream){
-    scanner = new Scanner(stream, StandardCharsets.UTF_8);
+    scanner = new Scanner(stream);
     extractAttributeNames();
   }
 
   /**
    * Extracts the names of the columns from csv file header and saves them as attribute names for further processing
+   * The first line of the csv file that is not empty or not only contains white spaces is considered to be the header
+   * @throws IllegalArgumentException if csv file is empty
    */
   private void extractAttributeNames(){
     if(!hasNewAttributeList()){
@@ -50,16 +52,13 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
 
     String header = consumeLine();
 
-    if(header.trim().isEmpty()){
-      throw new IllegalArgumentException("Csv file " + path + " contains blank header");
-    }
-
     String[] parts = header.split(separator);
     attributeNames = Arrays.stream(parts).map(String::trim).collect(Collectors.toList());
   }
 
   /**
    * Returns the currently saved line and sets the field to an empty string
+   * Removes non-printable UTF-8 chars
    * @return the currently saved line
    */
   private String consumeLine(){
@@ -71,6 +70,12 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
     return tmp;
   }
 
+  /**
+   * Returns the next available attribute list that maps attribute name to attribute string value
+   * @return an attribute list that maps attribute name to attribute string value
+   * @throws RuntimeException if end of csv file is reached
+   * @throws RuntimeException if the number of entries in a row doesn't match the number of headers in the csv file
+   */
   @Override
   public Map<String, String> getNextAttributeList() {
     if(this.line.trim().isEmpty() && !hasNewAttributeList()){
@@ -93,6 +98,12 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
     return attributeMappings;
   }
 
+  /**
+   * Indicates whether a new AttributeList can be read from this AttributeListProvider.
+   * Skips empty lines in csv files and stores current line in csv file in this.line to make it accessible for get-Method
+   * Doesn't perform a skip operation if called multiple times without calling get-Method
+   * @return true if there is a new Attribute List available, else false
+   */
   @Override
   public boolean hasNewAttributeList() {
     boolean result;
