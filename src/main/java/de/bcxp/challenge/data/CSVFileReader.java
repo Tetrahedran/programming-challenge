@@ -24,6 +24,8 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
    * @param separator Separator for columns used in csv file
    */
   public CSVFileReader(InputStream stream, String path, char separator){
+    Objects.requireNonNull(stream);
+
     this.separator = Character.toString(separator);
     this.line = "";
     this.path = path;

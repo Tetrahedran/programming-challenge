@@ -3,6 +3,7 @@ package de.bcxp.challenge.logic;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * Class for basic evaluation of data object metrics
@@ -22,6 +23,10 @@ public class BasicMetricEvaluator {
     IdentifierProvider<T> idProvider,
     MetricProvider<T> metricProvider)
   {
+    Objects.requireNonNull(data);
+    Objects.requireNonNull(idProvider);
+    Objects.requireNonNull(metricProvider);
+
     if(data.isEmpty()){
       throw new IllegalArgumentException("The provided data list was empty");
     }
@@ -45,6 +50,10 @@ public class BasicMetricEvaluator {
     IdentifierProvider<T> idProvider,
     MetricProvider<T> metricProvider
   ){
+    Objects.requireNonNull(data);
+    Objects.requireNonNull(idProvider);
+    Objects.requireNonNull(metricProvider);
+
     if(data.isEmpty()){
       throw new IllegalArgumentException("The provided data list was empty");
     }
