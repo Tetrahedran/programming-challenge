@@ -42,6 +42,7 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
   /**
    * Extracts the names of the columns from csv file header and saves them as attribute names for further processing
    * The first line of the csv file that is not empty or not only contains white spaces is considered to be the header
+   * Removes unit annotations in brackets after a white space, e.g. Area (km²) becomes just Area
    * @throws IllegalArgumentException if csv file is empty
    */
   private void extractAttributeNames(){
