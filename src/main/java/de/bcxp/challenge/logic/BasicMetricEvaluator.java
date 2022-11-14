@@ -17,7 +17,7 @@ public class BasicMetricEvaluator {
    * @param <T> class of the data objects
    * @return The identifier of the data object with the lowest metric
    */
-  public static <T> String getIdentifierForMinimumValue(
+  public static <T> String getIdentifierForMinimumMetric(
     List<T> data,
     IdentifierProvider<T> idProvider,
     MetricProvider<T> metricProvider)

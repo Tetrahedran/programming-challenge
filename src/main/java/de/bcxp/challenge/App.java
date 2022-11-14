@@ -1,16 +1,12 @@
 package de.bcxp.challenge;
 
-import de.bcxp.challenge.data.AttributeListProvider;
 import de.bcxp.challenge.data.CSVFileReader;
 import de.bcxp.challenge.data.DataProvider;
 import de.bcxp.challenge.data.WeatherDataFactory;
 import de.bcxp.challenge.logic.BasicMetricEvaluator;
 import de.bcxp.challenge.model.WeatherData;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +31,7 @@ public final class App {
             data = dataProvider.getDataObjectsFrom(provider);
         }
 
-        String dayWithSmallestTempSpread = BasicMetricEvaluator.getIdentifierForMinimumValue(
+        String dayWithSmallestTempSpread = BasicMetricEvaluator.getIdentifierForMinimumMetric(
           data, wData -> Integer.toString(wData.getDay()), WeatherData::getTemperatureSpread);     // Your day analysis function call …
         System.out.printf("Day with smallest temperature spread: %s%n", dayWithSmallestTempSpread);
 

@@ -18,7 +18,7 @@ public class BasicMetricEvaluatorTest {
     int day = 1;
     WeatherData data = new WeatherData(day, 10, 20);
     List<WeatherData> dataList = List.of(data);
-    String result = BasicMetricEvaluator.getIdentifierForMinimumValue(
+    String result = BasicMetricEvaluator.getIdentifierForMinimumMetric(
       dataList, (dat) -> Integer.toString(dat.getDay()), WeatherData::getTemperatureSpread);
     assertEquals(Integer.toString(day), result);
   }
@@ -35,7 +35,7 @@ public class BasicMetricEvaluatorTest {
 
     List<WeatherData> dataList = Arrays.asList(dat1, dat2, winnerDat);
 
-    String result = BasicMetricEvaluator.getIdentifierForMinimumValue(dataList,
+    String result = BasicMetricEvaluator.getIdentifierForMinimumMetric(dataList,
       dat -> Integer.toString(dat.getDay()), WeatherData::getTemperatureSpread);
 
     assertEquals(Integer.toString(winnerDay), result);
@@ -44,7 +44,7 @@ public class BasicMetricEvaluatorTest {
   @Test
   void getIdentifierForMinEmptyList(){
     List<WeatherData> dataList = new ArrayList<>();
-    assertThrows(IllegalArgumentException.class, () -> BasicMetricEvaluator.getIdentifierForMinimumValue(dataList,
+    assertThrows(IllegalArgumentException.class, () -> BasicMetricEvaluator.getIdentifierForMinimumMetric(dataList,
       (data) -> Integer.toString(data.getDay()), WeatherData::getTemperatureSpread));
   }
 
@@ -60,7 +60,7 @@ public class BasicMetricEvaluatorTest {
 
     List<WeatherData> dataList = Arrays.asList(dat1, winnerDat1, winnerDat2);
 
-    String result = BasicMetricEvaluator.getIdentifierForMinimumValue(dataList,
+    String result = BasicMetricEvaluator.getIdentifierForMinimumMetric(dataList,
       data -> Integer.toString(data.getDay()), WeatherData::getTemperatureSpread);
 
     List<String> expectedDays = Arrays.asList(Integer.toString(winnerDay1),
