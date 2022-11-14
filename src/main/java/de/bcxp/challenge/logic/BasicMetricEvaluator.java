@@ -32,6 +32,14 @@ public class BasicMetricEvaluator {
     return id;
   }
 
+  /**
+   * Searches for the element with the highest metric and returns its identifier
+   * @param data List of data objects
+   * @param idProvider Provider for an identifier for class T
+   * @param metricProvider Provider for the relevant metric
+   * @param <T> class of the data objects
+   * @return The identifier of the data object with the highest metric
+   */
   public static <T> String getIdentifierForMaximumMetric(
     List<T> data,
     IdentifierProvider<T> idProvider,
