@@ -3,6 +3,7 @@ package de.bcxp.challenge.data;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -35,7 +36,7 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
    * @param stream Stream to csv resource
    */
   private void preprocessStream(InputStream stream){
-    scanner = new Scanner(stream);
+    scanner = new Scanner(stream, StandardCharsets.UTF_8);
     extractAttributeNames();
   }
 
@@ -63,6 +64,9 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
    */
   private String consumeLine(){
     String tmp = this.line;
+    // Bug Fix for invisible characters taken from
+    // https://stackoverflow.com/questions/15520791/remove-non-printable-utf8-characters-except-controlchars-from-string
+    tmp = tmp.replaceAll("\\p{C}", "");
     this.line = "";
     return tmp;
   }
