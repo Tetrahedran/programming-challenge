@@ -6,8 +6,12 @@ import java.util.stream.Collectors;
 
 /**
  * Generic file reader for csv files
+ * Has to be closed after use
  */
 public class CSVFileReader implements AttributeListProvider, AutoCloseable {
+  /**
+   * Regex for detecting annotations in brackets in csv header fields
+   */
   public static final String HEADER_ANNOTATION_REGEX = "\\s[(].*[)]";
 
   private final String path;

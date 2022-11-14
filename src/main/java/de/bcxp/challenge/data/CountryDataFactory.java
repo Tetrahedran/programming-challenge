@@ -27,20 +27,11 @@ public class CountryDataFactory implements DataProvider<CountryData>{
       Map<String, String> attributes = provider.getNextAttributeList();
       String name = attributes.get(NAME_IDENTIFIER);
       String populationString = attributes.get(POPULATION_IDENTIFIER);
-      int population;
       if(populationString.matches(EUROPEAN_NUMBER_REGEX)){
-        try {
-          Number number = NumberFormat.getInstance(Locale.GERMANY).parse(attributes.get(POPULATION_IDENTIFIER));
-          population = number.intValue();
-        }
-        catch(ParseException pe){
-          throw new IllegalArgumentException("number " + attributes.get(POPULATION_IDENTIFIER) + " doesn't match" +
-            "the requested number format",pe);
-        }
+        populationString = populationString.replaceAll("[.]", "");
+        populationString = populationString.split(",")[0];
       }
-      else{
-        population = Integer.parseInt(populationString);
-      }
+      int population = Integer.parseInt(populationString);
       double area = Double.parseDouble(attributes.get(AREA_IDENTIFIER));
 
       CountryData cData = new CountryData(name, population, area);
