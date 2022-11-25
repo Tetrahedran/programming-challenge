@@ -38,4 +38,13 @@ public class WeatherData {
   public int hashCode() {
     return Objects.hash(day, minimumTemperature, maximumTemperature);
   }
+
+  @Override
+  public String toString() {
+    return "WeatherData{" +
+      "day=" + day +
+      ", minimumTemperature=" + minimumTemperature +
+      ", maximumTemperature=" + maximumTemperature +
+      '}';
+  }
 }

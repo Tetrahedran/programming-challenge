@@ -36,4 +36,13 @@ public class CountryData {
   public int hashCode() {
     return Objects.hash(name, population, area);
   }
+
+  @Override
+  public String toString() {
+    return "CountryData{" +
+      "name='" + name + '\'' +
+      ", population=" + population +
+      ", area=" + area +
+      '}';
+  }
 }

@@ -42,7 +42,7 @@ public final class App {
         }
 
         String dayWithSmallestTempSpread = BasicMetricEvaluator.getIdentifierForMinimumMetric(
-          wDataList, wData -> Integer.toString(wData.getDay()), WeatherData::getTemperatureSpread);     // Your day analysis function call …
+          wDataList, wData -> Integer.toString(wData.getDay()), WeatherData::getTemperatureSpread);
         System.out.printf("Day with smallest temperature spread: %s%n", dayWithSmallestTempSpread);
 
         String countryWithHighestPopulationDensity = BasicMetricEvaluator.getIdentifierForMaximumMetric(
