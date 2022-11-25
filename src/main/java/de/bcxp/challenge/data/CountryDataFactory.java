@@ -11,7 +11,7 @@ public class CountryDataFactory implements DataProvider<CountryData>{
 
   /**
    * Matches european styled semantic integer numbers that contain a decimal comma with following zeros and
-   * optional points as thousands separator
+   * optional points as thousands separator, e.g. 1,00 or 1.234,0 or 1.234.567,000
    */
   public static final String EUROPEAN_NUMBER_REGEX = "[[\\d]{1,3}[.]]*[\\d]{3}[,][0]+";
 
@@ -25,8 +25,11 @@ public class CountryDataFactory implements DataProvider<CountryData>{
       Map<String, String> attributes = provider.getNextAttributeList();
       String name = attributes.get(NAME_IDENTIFIER);
       String populationString = attributes.get(POPULATION_IDENTIFIER);
+
       if(populationString.matches(EUROPEAN_NUMBER_REGEX)){
+        // remove thousands separator
         populationString = populationString.replaceAll("[.]", "");
+        // remove comma and zeros after it
         populationString = populationString.split(",")[0];
       }
       long population = Long.parseLong(populationString);

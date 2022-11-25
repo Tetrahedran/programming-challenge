@@ -5,12 +5,15 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Generic file reader for csv files
+ * Generic file reader for csv files.
+ * Processes csv files into maps that map attribute name taken from csv header to corresponding attribute value.
+ * Omits blank lines and takes first non-blank line as header.
  * Has to be closed after use
  */
 public class CSVFileReader implements AttributeListProvider, AutoCloseable {
   /**
    * Regex for detecting annotations in brackets in csv header fields
+   * e.g. Area (km²)
    */
   public static final String HEADER_ANNOTATION_REGEX = "\\s[(].*[)]";
 
@@ -72,7 +75,7 @@ public class CSVFileReader implements AttributeListProvider, AutoCloseable {
   }
 
   /**
-   * Returns the currently saved line and sets the field to an empty string
+   * Returns the currently saved line and sets the field to an empty string.
    * Removes non-printable UTF-8 chars
    * @return the currently saved line
    */
