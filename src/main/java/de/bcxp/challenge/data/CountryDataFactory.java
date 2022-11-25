@@ -29,7 +29,7 @@ public class CountryDataFactory implements DataProvider<CountryData>{
         populationString = populationString.replaceAll("[.]", "");
         populationString = populationString.split(",")[0];
       }
-      int population = Integer.parseInt(populationString);
+      long population = Long.parseLong(populationString);
       double area = Double.parseDouble(attributes.get(AREA_IDENTIFIER));
 
       CountryData cData = new CountryData(name, population, area);

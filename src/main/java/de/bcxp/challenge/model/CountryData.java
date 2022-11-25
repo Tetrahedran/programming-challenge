@@ -4,10 +4,10 @@ import java.util.Objects;
 
 public class CountryData {
   private final String name;
-  private final int population;
+  private final long population;
   private final double area;
 
-  public CountryData(String name, int population, double area){
+  public CountryData(String name, long population, double area){
     this.name = name;
     this.population = population;
     if(area == 0){
