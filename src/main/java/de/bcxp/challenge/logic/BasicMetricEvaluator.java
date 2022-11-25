@@ -17,6 +17,10 @@ public class BasicMetricEvaluator {
    * @param metricProvider Provider for the relevant metric
    * @param <T> class of the data objects
    * @return The identifier of the data object with the lowest metric
+   * @throws IllegalArgumentException If the provided list of data is empty
+   * @throws NoSuchElementException If the provided list contains no minimum element
+   * @throws NullPointerException If any idProvider returns null value
+   *
    */
   public static <T> String getIdentifierForMinimumMetric(
     List<T> data,
@@ -32,6 +36,7 @@ public class BasicMetricEvaluator {
     }
 
     String id = data.stream()
+      .peek(item -> checkIfNonNull(idProvider.getIdentifier(item), item))
       .min(Comparator.comparingDouble(metricProvider::getMetric))
       .map(idProvider::getIdentifier).orElseThrow(()->new NoSuchElementException("A minimum value couldn't be found"));
     return id;
@@ -44,6 +49,9 @@ public class BasicMetricEvaluator {
    * @param metricProvider Provider for the relevant metric
    * @param <T> class of the data objects
    * @return The identifier of the data object with the highest metric
+   * @throws IllegalArgumentException If the provided list of data is empty
+   * @throws NoSuchElementException If the provided list contains no maximum element
+   * @throws NullPointerException If any idProvider returns null value
    */
   public static <T> String getIdentifierForMaximumMetric(
     List<T> data,
@@ -59,9 +67,20 @@ public class BasicMetricEvaluator {
     }
 
     String id = data.stream()
+      .peek(item -> checkIfNonNull(idProvider.getIdentifier(item), item))
       .max(Comparator.comparingDouble(metricProvider::getMetric))
       .map(idProvider::getIdentifier).orElseThrow(()->new NoSuchElementException("A maximum value couldn't be found"));
     return id;
+  }
+
+  /**
+   * Checks if objectToCheck is non-null
+   * @param objectToCheck Object which has to be non-null
+   * @param source source of objectToCheck
+   * @throws NullPointerException If objectToCheck is null
+   */
+  private static void checkIfNonNull(Object objectToCheck, Object source){
+    Objects.requireNonNull(objectToCheck, "Object " + source.toString() + " contains null value");
   }
 
 }
