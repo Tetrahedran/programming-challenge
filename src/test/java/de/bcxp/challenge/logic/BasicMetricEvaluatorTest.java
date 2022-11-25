@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class BasicMetricEvaluatorTest {
 
+  /**
+   * Tests getIdentifierForMinimumMetric with only one item
+   */
   @Test
   void getIdentifierForMinSingleItemTest(){
     int day = 1;
@@ -23,6 +26,9 @@ public class BasicMetricEvaluatorTest {
     assertEquals(Integer.toString(day), result);
   }
 
+  /**
+   * Tests getIdentifierForMinimumMetric with multiple items
+   */
   @Test
   void getIdentifierForMinMultipleItemTest(){
     int day1 = 1;
@@ -41,6 +47,9 @@ public class BasicMetricEvaluatorTest {
     assertEquals(Integer.toString(winnerDay), result);
   }
 
+  /**
+   * Tests correct error when using getIdentifierForMinimumMetric with empty list
+   */
   @Test
   void getIdentifierForMinEmptyList(){
     List<WeatherData> dataList = new ArrayList<>();
@@ -48,6 +57,9 @@ public class BasicMetricEvaluatorTest {
       (data) -> Integer.toString(data.getDay()), WeatherData::getTemperatureSpread));
   }
 
+  /**
+   * Tests getIdentifierForMinimumMetric with multiple possible minimum data objects
+   */
   @Test
   void getIdentifierForMinMultipleMinData(){
     int day1 = 1;
@@ -69,6 +81,9 @@ public class BasicMetricEvaluatorTest {
     assertTrue(expectedDays.contains(result));
   }
 
+  /**
+   * Tests getIdentifierForMaximumMetric with only one item
+   */
   @Test
   void getIdentifierForMaxSingleItemTest(){
     int day = 1;
@@ -79,6 +94,9 @@ public class BasicMetricEvaluatorTest {
     assertEquals(Integer.toString(day), result);
   }
 
+  /**
+   * Tests getIdentifierForMaximumMetric with multiple items
+   */
   @Test
   void getIdentifierForMaxMultipleItemTest(){
     int day1 = 1;
@@ -97,6 +115,9 @@ public class BasicMetricEvaluatorTest {
     assertEquals(Integer.toString(winnerDay), result);
   }
 
+  /**
+   * Tests correct error when using getIdentifierForMaximumMetric with empty list
+   */
   @Test
   void getIdentifierForMaxEmptyList(){
     List<WeatherData> dataList = new ArrayList<>();
@@ -104,6 +125,9 @@ public class BasicMetricEvaluatorTest {
       (data) -> Integer.toString(data.getDay()), WeatherData::getTemperatureSpread));
   }
 
+  /**
+   * Tests getIdentifierForMaximumMetric with multiple possible maximum data objects
+   */
   @Test
   void getIdentifierForMaxMultipleMinData(){
     int day1 = 1;

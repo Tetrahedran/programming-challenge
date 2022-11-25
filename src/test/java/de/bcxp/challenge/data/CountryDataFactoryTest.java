@@ -20,6 +20,9 @@ public class CountryDataFactoryTest {
     factory = new CountryDataFactory();
   }
 
+  /**
+   * Tests normal data creation from attribute list
+   */
   @Test
   void getDataObjectFromTest(){
     String name = "Test";
@@ -39,6 +42,9 @@ public class CountryDataFactoryTest {
     assertEquals(expected, cData);
   }
 
+  /**
+   * Tests data object creation from empty {@link AttributeListProvider}
+   */
   @Test
   void getDataObjectsFromEmpty(){
     List<Map<String, String>> mockData = new ArrayList<>();

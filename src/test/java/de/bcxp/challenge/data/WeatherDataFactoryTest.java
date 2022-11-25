@@ -19,6 +19,9 @@ public class WeatherDataFactoryTest {
     factory = new WeatherDataFactory();
   }
 
+  /**
+   * Tests correct data object creation
+   */
   @Test
   void getDataObjectsFromTest(){
     int day = 1;
@@ -38,6 +41,9 @@ public class WeatherDataFactoryTest {
     assertEquals(expected, wData);
   }
 
+  /**
+   * Tests data object creation from empty {@link AttributeListProvider}
+   */
   @Test
   void getDataObjectsFromEmpty(){
     List<Map<String, String>> mockData = new ArrayList<>();

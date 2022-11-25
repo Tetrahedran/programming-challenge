@@ -4,6 +4,10 @@ package de.bcxp.challenge.data;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * {@link AttributeListProvider} for test purposes.
+ * Allows to mock csv files by input Map
+ */
 public class TestAttributeListProvider implements AttributeListProvider{
   private final List<Map<String, String>> data;
   private int i;

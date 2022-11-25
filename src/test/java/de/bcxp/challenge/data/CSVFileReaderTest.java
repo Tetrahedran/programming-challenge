@@ -19,6 +19,9 @@ public class CSVFileReaderTest {
     }
   }
 
+  /**
+   * Tests correct error when {@link CSVFileReader} is created with empty csv file
+   */
   @Test
   void createCSVFileReaderEmptyFileTest(){
     String path = "de/bcxp/challenge/Empty.csv";
@@ -26,6 +29,9 @@ public class CSVFileReaderTest {
     assertThrows(IllegalArgumentException.class, () -> reader = new CSVFileReader(stream, path, ';'));
   }
 
+  /**
+   * Tests correct error when {@link CSVFileReader} is created with white space only csv file
+   */
   @Test
   void createCSVFileReaderWhiteSpaceFileTest(){
     String path = "de/bcxp/challenge/WhiteSpace.csv";
@@ -33,6 +39,9 @@ public class CSVFileReaderTest {
     assertThrows(IllegalArgumentException.class, () -> reader = new CSVFileReader(stream, path, ';'));
   }
 
+  /**
+   * Tests correct yielding of Attribute List of getNextAttributeList
+   */
   @Test
   void getNextAttributeListTest(){
     String firstCol = "First";
@@ -56,6 +65,9 @@ public class CSVFileReaderTest {
     assertEquals(thirdExpct, attributeList.get(thirdCol));
   }
 
+  /**
+   * Tests correct order when using getNextAttributeList with multiple lines in input file
+   */
   @Test
   void getNextAttributeListMultiLineTest(){
     String firstCol = "First";
@@ -79,6 +91,9 @@ public class CSVFileReaderTest {
     assertEquals(3, i);
   }
 
+  /**
+   * Tests correct yielding of Attribute List of getNextAttributeList when csv file contains blank lines
+   */
   @Test
   void getNextAttributeListWithBlankLinesInFileTest(){
     String firstCol = "First";
@@ -102,6 +117,9 @@ public class CSVFileReaderTest {
     assertEquals(thirdExpct, attributeList.get(thirdCol));
   }
 
+  /**
+   * Tests correct yielding of Attribute List of getNextAttributeList when csv file contains white spaces in header
+   */
   @Test
   void getNextAttributeListWithWhiteSpacesInHeader(){
     String firstCol = "First";
@@ -118,6 +136,9 @@ public class CSVFileReaderTest {
     assertTrue(attributeList.containsKey(thirdCol));
   }
 
+  /**
+   * Tests correct Error when calling getNextAttributeList but there is no new list available
+   */
   @Test
   void getNextAttributeListAtEOF(){
     String path = "de/bcxp/challenge/SimpleFile.csv";
@@ -127,6 +148,10 @@ public class CSVFileReaderTest {
     assertThrows(RuntimeException.class, () -> reader.getNextAttributeList());
   }
 
+  /**
+   * Tests correct error when one line in csv file contains a number of elements that doesn't match the number
+   * of headers in this file
+   */
   @Test
   void getNextAttributeListIncorrectNumberOfColsInRow(){
     String path = "de/bcxp/challenge/IncorrectNumberCols.csv";
@@ -135,6 +160,9 @@ public class CSVFileReaderTest {
     assertThrows(RuntimeException.class, () -> reader.getNextAttributeList());
   }
 
+  /**
+   * Tests hasNewAttributeList with csv file containing one next list
+   */
   @Test
   void hasNextAttributeListSingleLineTest(){
     String path = "de/bcxp/challenge/SimpleFile.csv";
@@ -148,6 +176,9 @@ public class CSVFileReaderTest {
     assertFalse(reader.hasNewAttributeList());
   }
 
+  /**
+   * Tests hasNewAttributeList with csv file containing multiple next lists
+   */
   @Test
   void hasNextAttributeListMultiLineTest(){
     String path = "de/bcxp/challenge/MultiLineFile.csv";
@@ -169,6 +200,9 @@ public class CSVFileReaderTest {
     assertFalse(reader.hasNewAttributeList());
   }
 
+  /**
+   * Tests hasNewAttributeList with csv file containing blank lines
+   */
   @Test
   void hasNextAttributeListBlankLinesTest(){
     String path = "de/bcxp/challenge/SimpleFileWithBlankLines.csv";

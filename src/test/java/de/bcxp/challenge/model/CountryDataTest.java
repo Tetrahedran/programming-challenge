@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class CountryDataTest {
+
   @Test
   void createCountryDataTest(){
     String name = "Test";
@@ -15,6 +16,9 @@ public class CountryDataTest {
     assertEquals(population / area, data.getPopulationDensity(), 0.0001);
   }
 
+  /**
+   * Tests correct error when creating {@link CountryData} with a zero area
+   */
   @Test
   void zeroAreaTest(){
     assertThrows(IllegalArgumentException.class, () -> new CountryData("", 0, 0));

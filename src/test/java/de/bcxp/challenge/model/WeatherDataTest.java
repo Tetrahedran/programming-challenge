@@ -35,6 +35,9 @@ public class WeatherDataTest {
     assertEquals(0.0, data.getTemperatureSpread(),0.00001f);
   }
 
+  /**
+   * Tests correct error when creating {@link WeatherData} but min temperature is above max temperature
+   */
   @Test
   void errorCaseWeatherDataTest(){
     int day = 1;
