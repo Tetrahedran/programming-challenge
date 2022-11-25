@@ -23,8 +23,8 @@ public class WeatherDataFactory implements DataProvider<WeatherData>{
     while(provider.hasNewAttributeList()){
       Map<String, String> attributes = provider.getNextAttributeList();
       int day = Integer.parseInt(attributes.get(DAY_IDENTIFIER));
-      int maxTemp = Integer.parseInt(attributes.get(MAXIMUM_TEMP_IDENTIFIER));
-      int minTemp = Integer.parseInt(attributes.get(MINIMUM_TEMP_IDENTIFIER));
+      float maxTemp = Float.parseFloat(attributes.get(MAXIMUM_TEMP_IDENTIFIER));
+      float minTemp = Float.parseFloat(attributes.get(MINIMUM_TEMP_IDENTIFIER));
 
       WeatherData wData = new WeatherData(day, minTemp, maxTemp);
       data.add(wData);
